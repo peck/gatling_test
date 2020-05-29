@@ -65,19 +65,19 @@ class HelloWorldSimulation extends Simulation {
     .pause(1 second, 5 seconds)
     .exec(ws("Join LiveView Channel")
             .sendText("""
-["4", "4", "lv:${phx_id}", "phx_join", {"url": "http://localhost:4000/cA2gVqg02MArWAiQvyfwsT1cP4mWBM00hb/live", "static": "${phx_static}", "session": "${phx_session}", "params": {"_csrf_token": "${csrf_token}"}}]
+["4", "4", "lv:${phx_id}", "phx_join", {"url": "http://dev.sugarcaneatl.com/cA2gVqg02MArWAiQvyfwsT1cP4mWBM00hb/live", "static": "${phx_static}", "session": "${phx_session}", "params": {"_csrf_token": "${csrf_token}"}}]
 """)
     )
     .pause(1 second, 10 seconds)
-    .repeat(20, "count") {
+    .repeat(50, "count") {
       exec(ws("Websocket Heartbeat")
              .sendText("""[null, ${count}, "phoenix", "heartbeat", {}]""")
       )
         .pause(30)
     }
 
-   setUp(scn.inject(rampUsers(10000) during (10 minutes)))
-    .maxDuration(10 minutes)
+   setUp(scn.inject(rampUsers(15000) during (10 minutes)))
+    .maxDuration(15 minutes)
     .protocols(httpProtocol)
 
 }
