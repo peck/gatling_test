@@ -73,6 +73,11 @@ class HelloWorldSimulation extends Simulation {
       exec(ws("Websocket Heartbeat")
              .sendText("""[null, ${count}, "phoenix", "heartbeat", {}]""")
       )
+            .exec(ws("LiveView Send Periodic Hi")
+              .sendText("""
+["4", "5", "lv:${phx_id}", "event", {"type": "form", "event": "new_message", "value": "_csrf_token=${csrf_token}&message[body]=still%20here"}]
+""")
+      )
         .pause(30)
     }
 
