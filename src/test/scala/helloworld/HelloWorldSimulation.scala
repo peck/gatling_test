@@ -37,12 +37,12 @@ class HelloWorldSimulation extends Simulation {
             .formParam("age_verification[birth_date][day]", "28")
             .formParam("age_verification[birth_date][year]", "1999")
     )
-    .pause(1 second, 300 seconds)
+    .pause(1 second, 10 seconds)
     .exec(http("User Registration Edit")
             .get("/users/register")
             .check(css("meta[name=csrf-token]", "content").saveAs("csrf_token"))
     )
-    .pause(1 second, 10 seconds)
+    .pause(1 second, 30 seconds)
     .exec(http("User Registration Create")
           .post("/users/register")
           .formParam("_csrf_token", "${csrf_token}")
@@ -52,7 +52,7 @@ class HelloWorldSimulation extends Simulation {
             .formParam("user[email]", "${email}")
             .formParam("user[password]", "password")
     )
-    .pause(1 second, 10 seconds)
+    .pause(1 second, 5 seconds)
     .exec(http("Live Stream")
             .get("/zCzLPJwyD6rm42mhsZVcEZCXmN00vB9xR/live")
             .check(css("meta[name=csrf-token]", "content").saveAs("csrf_token"))
@@ -81,8 +81,8 @@ class HelloWorldSimulation extends Simulation {
         .pause(30)
     }
 
-  setUp(
-    scn.inject(atOnceUsers(50000))
-  ).protocols(httpProtocol)
+   setUp(scn.inject(rampUsers(50000) during (10 minutes)))
+    .maxDuration(10 minutes)
+    .protocols(httpProtocol)
 
 }
