@@ -82,7 +82,7 @@ class HelloWorldSimulation extends Simulation {
     }
 
   setUp(
-    scn.inject(atOnceUsers(2000))
+    scn.inject(atOnceUsers(50000))
   ).protocols(httpProtocol)
 
 }
