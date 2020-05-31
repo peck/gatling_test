@@ -69,15 +69,20 @@ class HelloWorldSimulation extends Simulation {
 """)
     )
     .pause(1 second, 10 seconds)
-    .repeat(50, "count") {
+    .repeat(120, "count") {
       exec(ws("Websocket Heartbeat")
              .sendText("""[null, ${count}, "phoenix", "heartbeat", {}]""")
+      )
+      .exec(ws("LiveView Send Join Event")
+                .sendText("""
+ ["4", "5", "lv:${phx_id}", "event", {"type": "form", "event": "new_message", "value": "_csrf_token=${csrf_token}&message[body]=still%20here"}]
+ """)
       )
       .pause(30)
     }
 
-   setUp(scn.inject(rampUsers(20000) during (20 minutes)))
-    .maxDuration(25 minutes)
+   setUp(scn.inject(rampUsers(50000) during (60 minutes)))
+    .maxDuration(70 minutes)
     .protocols(httpProtocol)
 
 }
