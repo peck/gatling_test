@@ -50,6 +50,7 @@ class HelloWorldSimulation extends Simulation {
             .formParam("user[email]", "${email}")
             .formParam("user[password]", "password")
     )
+    .pause(5 second, 10 seconds)
     .exec(http("Live Stream")
             .get("/zCzLPJwyD6rm42mhsZVcEZCXmN00vB9xR/live")
             .check(css("meta[name=csrf-token]", "content").saveAs("csrf_token"))
@@ -57,6 +58,7 @@ class HelloWorldSimulation extends Simulation {
             .check(css("div[data-phx-main=true]", "data-phx-static").saveAs("phx_static"))
             .check(css("div[data-phx-main=true]", "id").saveAs("phx_id"))
     )
+    .pause(5 second, 10 seconds)
     .exec(ws("Connect WS").connect("/live/websocket?_csrf_token=${csrf_token}&vsn=2.0.0"))
     .exec(ws("Join LiveView Channel")
             .sendText("""
