@@ -11,7 +11,7 @@ class HelloWorldSimulation extends Simulation {
   val feeder = Iterator.continually(
     Map("email" -> (Random.alphanumeric.take(20).mkString + "@foo.com"),
         "user_name" -> (Random.alphanumeric.take(20).mkString),
-        "sender" -> (Random.nextInt((100, 0) + 1))
+        "sender" -> (Random.nextInt((100 - 0) + 1).toString)
     )
   )
 
@@ -64,8 +64,8 @@ class HelloWorldSimulation extends Simulation {
     .pause(1 second, 5 seconds)
     .exec(ws("Connect WS").connect("/live/websocket?_csrf_token=${csrf_token}&vsn=2.0.0"))
     .pause(1 second, 5 seconds)
-  doIfEquals(${sender}, 1) {
-    .exec(ws("Join LiveView Channel")
+  doIfEquals("${sender}", "1") {
+    exec(ws("Join LiveView Channel")
             .sendText("""
 ["4", "4", "lv:${phx_id}", "phx_join", {"url": "http://dev.sugarcaneatl.com/cA2gVqg02MArWAiQvyfwsT1cP4mWBM00hb/live", "static": "${phx_static}", "session": "${phx_session}", "params": {"_csrf_token": "${csrf_token}"}}]
 """)
