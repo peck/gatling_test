@@ -77,7 +77,7 @@ class HelloWorldSimulation extends Simulation {
       .pause(30)
     }
 
-   setUp(scn.inject(rampUsers(20000) during (1 minutes)))
+   setUp(scn.inject(rampUsers(10000) during (1 minutes)))
     .maxDuration(10 minutes)
     .protocols(httpProtocol)
 
