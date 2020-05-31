@@ -63,17 +63,17 @@ class HelloWorldSimulation extends Simulation {
 ["4", "4", "lv:${phx_id}", "phx_join", {"url": "http://dev.sugarcaneatl.com/cA2gVqg02MArWAiQvyfwsT1cP4mWBM00hb/live", "static": "${phx_static}", "session": "${phx_session}", "params": {"_csrf_token": "${csrf_token}"}}]
 """)
     )
-  .doIfEquals("${sender}", "1") {
-    exec(ws("Send Here Message")
-    .sendText("""
- ["4", "5", "lv:${phx_id}", "event", {"type": "form", "event": "new_message", "value": "_csrf_token=${csrf_token}&message[body]=still%20here"}]
- """)
-  )
-  }
     .repeat(120, "count") {
       exec(ws("Websocket Heartbeat")
              .sendText("""[null, ${count}, "phoenix", "heartbeat", {}]""")
       )
+      .doIfEquals("${sender}", "1") {
+        exec(ws("Send Here Message")
+               .sendText("""
+ ["4", "5", "lv:${phx_id}", "event", {"type": "form", "event": "new_message", "value": "_csrf_token=${csrf_token}&message[body]=still%20here"}]
+ """)
+        )
+      }
       .pause(30)
     }
 
