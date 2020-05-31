@@ -11,7 +11,7 @@ class HelloWorldSimulation extends Simulation {
   val feeder = Iterator.continually(
     Map("email" -> (Random.alphanumeric.take(20).mkString + "@foo.com"),
         "user_name" -> (Random.alphanumeric.take(20).mkString),
-        "sender" -> (Random.nextInt((50 - 0) + 1).toString)
+        "sender" -> (Random.nextInt((500 - 0) + 1).toString)
     )
   )
 
