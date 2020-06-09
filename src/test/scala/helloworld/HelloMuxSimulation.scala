@@ -35,6 +35,6 @@ class HelloMuxSimulation extends Simulation {
     )
   }
 
-  setUp(scn.inject(atOnceUsers(100)))
+  setUp(scn.inject(reampUsers(10000) during (1 minutes))
     .protocols(httpProtocol)
 }
